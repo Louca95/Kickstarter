@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur notre site!{% endblock %}
+
+{% block body %}
+    <h1>Voici les projets</h1>
+    <ul>
+    {% for user in users %}
+    <li>
+        Voici un utilisateur : {{user.email}}
+    </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur notre liste de projet!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Voici les projets</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">{{ projet.titre }}</h5>
+            <p class="card-text">{{ projet.description }}</p>
+            <p class="card-text"><strong>Objectif : </strong>{{ projet.montantObjectif }}€</p>
+            <p class="card-text"><strong>Actuel : </strong>{{ projet.montantActuel }}€</p>
+            <p class="card-text"><strong>Date limite : </strong>{{ projet.dateLimite|date('d-m-Y H:i') }}</p>
+            <p class="card-text"><strong>Statut : </strong><span class="badge bg-primary">{{ projet.statut }}</span></p>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between">
+        <a href="{{ path('projet_index') }}" class="btn btn-secondary">Retour &agrave; la liste des projets</a>
+
+        <a href="{{ path('contribution_contribu', { 'projetId': projet.id }) }}" class="btn btn-success">Ajouter une contribution</a>
+
+        {# <a href="{{ path('contribution_index', { 'projetId': projet.id }) }}" class="btn btn-primary">Voir les contributions</a> #}
+
+        <form method="post" action="{{ path('projet_delete', { 'id': projet.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer le projet</button>
+    </form>
+    </div>
+</div>
+{% endblock %}
+

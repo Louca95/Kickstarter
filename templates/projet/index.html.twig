@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur notre liste de projets !{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Voici les projets</h1>
+
+    <div class="list-group">
+        {% for projet in projets %}
+        <a href="{{ path('projet_show', { 'titre': projet.titre }) }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ projet.titre }}</h5>
+                <small class="text-muted">{{ projet.dateLimite|date('d-m-Y H:i') }}</small>
+            </div>
+            <p class="mb-1">{{ projet.description }}</p>
+            <small>Objectif : {{ projet.montantObjectif }}€ | Actuel : {{ projet.montantActuel }}€</small>
+            <span class="badge bg-primary ms-2">{{ projet.statut }}</span>
+        </a>
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+            Aucun projet n'a été trouvé.
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('projet_new') }}" class="btn btn-success">Ajouter un nouveau projet</a>
+    </div>
+</div>
+{% endblock %}
