@@ -2,12 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Contribution;
-use App\Entity\Projet;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Projet;
+use App\Entity\Contribution;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContributionType extends AbstractType
@@ -19,11 +19,11 @@ class ContributionType extends AbstractType
             ->add('date', null, [
                 'widget' => 'single_text',
             ])
-            ->add('utilisateur_id', EntityType::class, [
+            ->add('utilisateur', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',
             ])
-            ->add('projet_id', EntityType::class, [
+            ->add('projet', EntityType::class, [
                 'class' => Projet::class,
                 'choice_label' => 'id',
             ])
@@ -36,4 +36,6 @@ class ContributionType extends AbstractType
             'data_class' => Contribution::class,
         ]);
     }
+
+   
 }

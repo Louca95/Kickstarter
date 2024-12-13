@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un projet{% endblock %}
+{% block title %}Ajouter une contribution{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
@@ -17,12 +17,17 @@
         <div class="mb-3">
             {{ form_widget(form) }}
         </div>
-        <button type="submit" class="btn btn-primary">Ajouter d'une contribution</button>
+        <button type="submit" class="btn btn-primary">Ajouter une contribution</button>
         {{ form_end(form) }}
     </div>
 
     <div class="mt-4">
+    {% if contributions is not empty %}
+        {% set projetId = contributions[0].projet.id %}
+        <a href="{{ path('contribution_view', { 'id': projetId }) }}" class="btn btn-secondary">Retour au projet</a>
+    {% else %}
         <a href="{{ path('projet_index') }}" class="btn btn-secondary">Retour à la liste des projets</a>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

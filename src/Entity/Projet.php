@@ -151,7 +151,7 @@ class Projet
     {
         if (!$this->contributions->contains($contribution)) {
             $this->contributions->add($contribution);
-            $contribution->setProjetId($this);
+            $contribution->setProjet($this);
         }
 
         return $this;
@@ -161,8 +161,8 @@ class Projet
     {
         if ($this->contributions->removeElement($contribution)) {
             // set the owning side to null (unless already changed)
-            if ($contribution->getProjetId() === $this) {
-                $contribution->setProjetId(null);
+            if ($contribution->getProjet() === $this) {
+                $contribution->setProjet(null);
             }
         }
 

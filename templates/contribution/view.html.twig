@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail des Contributions{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Détail des Contributions</h1>
+
+    {% if contributions is not empty %}
+        {% for contribution in contributions %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Contribution de {{ contribution.utilisateur.id }}</h5>
+                    <p class="card-text"><strong>Montant :</strong> {{ contribution.montant }} €</p>
+                    <p class="card-text"><strong>Date :</strong> {{ contribution.date|date('d-m-Y H:i') }}</p>
+                    <p class="card-text"><strong>Projet :</strong> {{ contribution.projet.id }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Aucune contribution trouvée pour ce projet.
+        </div>
+    {% endif %}
+    <div>
+      <a href="{{ path('projet_index') }}" class="btn btn-secondary">Retour à la liste des projets</a>
+    </div>
+</div>
+{% endblock %}
+
+

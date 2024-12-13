@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
+ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UtilisateurAuthenticator extends AbstractAuthenticator
 {
@@ -24,7 +25,7 @@ class UtilisateurAuthenticator extends AbstractAuthenticator
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email');
-        $password = $request->request->get('password');
+        $password = $request->request->get('mot_de_passe');
 
         return new Passport(
             new UserBadge($email),
@@ -42,6 +43,10 @@ class UtilisateurAuthenticator extends AbstractAuthenticator
     {
         return new RedirectResponse($this->router->generate('app_login'));
     }
+   
+    // other properties and methods
+
+    
 
     //    public function start(Request $request, AuthenticationException $authException = null): Response
     //    {

@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+// use Symfony\Component\Security\Core\User\UserInterface;
+// use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+
+class User 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,10 +26,12 @@ class User
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mot_de_passe = null;
+    private ?string $mot_de_passe= null;
 
     #[ORM\Column(length: 255)]
     private ?string $role = null;
+
+    
 
     /**
      * @var Collection<int, Projet>
@@ -59,14 +68,16 @@ class User
         return $this;
     }
 
+    
+
     public function getMotDePasse(): ?string
     {
         return $this->mot_de_passe;
     }
 
-    public function setMotDePasse(string $mot_de_passe): static
+    public function setMotDePasse(string $motDePasse): self
     {
-        $this->mot_de_passe = $mot_de_passe;
+        $this->mot_de_passe = $motDePasse;
 
         return $this;
     }
@@ -82,6 +93,41 @@ class User
 
         return $this;
     }
+    
+
+
+    public function getPassword(): string
+    {
+        return $this->mot_de_passe;
+    }
+
+    /**
+     * Set the password after hashing.
+     */
+    // public function setMotDePasse(string $mot_de_passe): self
+    // {
+    //     $this->mot_de_passe = $mot_de_passe;
+
+    //     return $this;
+    // }
+
+    // You must also implement other methods required by `UserInterface`
+    public function getRoles(): array
+    {
+        return ['ROLE_USER']; // Example role
+    }
+
+    public function getUsername(): string
+    {
+        // Return the username or email, depending on your setup
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If any sensitive data needs to be erased, you can do so here
+    }
+
 
     /**
      * @return Collection<int, Projet>
@@ -113,6 +159,8 @@ class User
         return $this;
     }
 
+    
+
     /**
      * @return Collection<int, Contribution>
      */
@@ -125,7 +173,7 @@ class User
     {
         if (!$this->contributions->contains($contribution)) {
             $this->contributions->add($contribution);
-            $contribution->setUtilisateurId($this);
+            $contribution->setUtilisateur($this);
         }
 
         return $this;
@@ -135,8 +183,8 @@ class User
     {
         if ($this->contributions->removeElement($contribution)) {
             // set the owning side to null (unless already changed)
-            if ($contribution->getUtilisateurId() === $this) {
-                $contribution->setUtilisateurId(null);
+            if ($contribution->getUtilisateur() === $this) {
+                $contribution->setUtilisateur(null);
             }
         }
 

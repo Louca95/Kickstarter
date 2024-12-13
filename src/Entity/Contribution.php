@@ -28,11 +28,13 @@ class Contribution
     #[ORM\JoinColumn(nullable: false)]
     private ?Projet $projet = null;
 
+    // ID Getter
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    // Montant Getter and Setter
     public function getMontant(): ?string
     {
         return $this->montant;
@@ -45,6 +47,7 @@ class Contribution
         return $this;
     }
 
+    // Date Getter and Setter
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -57,24 +60,26 @@ class Contribution
         return $this;
     }
 
-    public function getUtilisateurId(): ?User
+    // Utilisateur Getter and Setter
+    public function getUtilisateur(): ?User
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateurId(?User $utilisateur): static
+    public function setUtilisateur(?User $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getProjetId(): ?Projet
+    // Projet Getter and Setter
+    public function getProjet(): ?Projet
     {
         return $this->projet;
     }
 
-    public function setProjetId(?Projet $projet): static
+    public function setProjet(?Projet $projet): static
     {
         $this->projet = $projet;
 

@@ -2,9 +2,10 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use App\Entity\User;
 use App\Entity\Projet;
-use DateTime;
+use App\Entity\Contribution;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -50,6 +51,13 @@ class AppFixtures extends Fixture
                 ->setDateLimite(new DateTime('+1 year'))
                 ->setStatut('en préparation');
         $manager->persist($projet3);
+
+        $contribution1 = new Contribution();
+        $contribution1->setMontant(1000)
+                      ->setDate(new DateTime('+1 year'))
+                      ->setUtilisateur($user1)
+                      ->setProjet($projet1);
+        $manager->persist($contribution1);
 
         $manager->flush();
     }
